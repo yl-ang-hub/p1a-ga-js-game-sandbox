@@ -18,21 +18,16 @@ function setUpBoard(size) {
       }
     }
   }
-  console.log(board);
   // Temporary code for debug; note [posY][posX]
-  board[5][6] =
-    board[5][5] =
-    board[6][5] =
-    board[3][2] =
-    board[5][2] =
-    board[4][3] =
-    board[4][1] =
-      0;
+  console.log(board);
+  board[5][6] = 0;
+  board[5][5] = board[6][5] = board[3][2] = 0;
+  board[5][2] = board[4][3] = board[4][1] = 0;
   board[2][2] = board[6][2] = board[4][0] = 1;
 
   // TODO: Display board on screen
   updateBoardDisplay(board);
-  return board;
+  return [board, 0];
 }
 
 function resetGame(board) {
@@ -40,8 +35,9 @@ function resetGame(board) {
    * Resets the game and return a new board
    * @return array representing the board
    */
+  const size = board.length;
   delete board;
-  return setUpBoard();
+  return setUpBoard(size);
 }
 
 function updateBoardDisplay(board) {
@@ -86,9 +82,15 @@ function updateBoardDisplay(board) {
 }
 
 function changePlayer(currPlayer) {
-  if (currPlayer) {
+  if (currPlayer === 1) {
     currPlayer = 0;
   } else {
     currPlayer = 1;
+  }
+  currPlayerDisplay = document.querySelector("h2");
+  if (currPlayer === 0) {
+    currPlayerDisplay.innerText = "Current Player: Computer";
+  } else {
+    currPlayerDisplay.innerText = "Current Player: User";
   }
 }

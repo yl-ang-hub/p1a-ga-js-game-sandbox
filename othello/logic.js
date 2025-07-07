@@ -92,6 +92,8 @@ function checkEligibleMoves(currY, currX, self, board, checkMove = false) {
   console.log(seedsToFlip);
 
   seedsToFlip ? (isEligible = true) : (isEligible = false);
+  console.log(isEligible);
+  console.log(seedsToFlip);
   return [isEligible, seedsToFlip];
 }
 
@@ -104,8 +106,8 @@ function hasAvailableMove(board) {
   //   if yes, return true
 }
 
-function flipSeeds(seedsToFlip, board) {
-  for (const [posY, posX] of seedsToFlip) {
+function flipSeeds(seedsToFlip, currPlayer, board) {
+  for (let [posY, posX] of seedsToFlip) {
     board[posY][posX] = currPlayer;
   }
   updateBoardDisplay(board);
@@ -117,15 +119,18 @@ function placeSeed(y, x, currPlayer) {
     // TODO - code this
     console.log("illegal move");
     return board;
-  } else if (!hasAvailableMove(board)) {
-    console.log(`No eligible move left for ${currPlayer}`);
-    changePlayer();
   }
+  // else if (!hasAvailableMove(board)) {
+  //   console.log(`No eligible move left for ${currPlayer}`);
+  //   changePlayer();
+  //   return board;
+  // }
 
   board[y][x] = currPlayer;
   const [isEligible, seedsToFlip] = checkEligibleMoves(y, x, currPlayer, board);
   if (isEligible) {
-    board = flipSeeds(seedsToFlip);
+    board = flipSeeds(seedsToFlip, currPlayer, board);
   }
+  changePlayer(currPlayer);
   return board;
 }
