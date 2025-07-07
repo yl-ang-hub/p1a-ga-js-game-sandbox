@@ -4,33 +4,31 @@ function setUpBoard(size) {
    * @return array representing the board
    * Assume 0 is black, 1 is white, and null is empty
    */
-  row = document.createElement("div");
-  row.setAttribute("class", "row");
-  dt = document.createElement("div");
-  dt.setAttribute("class", "dt");
-  for (let i = 0; i < size; i++) {
-    row.appendChild(dt.cloneNode(true));
-  }
-  game = document.querySelector(".game");
-  for (let i = 0; i < size; i++) {
-    game.appendChild(row.cloneNode(true));
-  }
   let board = [];
+  mid1 = size / 2 - 1;
+  mid2 = size / 2;
   for (let y = 0; y < size; y++) {
     board[y] = [];
     for (let x = 0; x < size; x++) {
       board[y][x] = null;
-      if ((y === 2 && x === 2) || (y === 3 && x === 3)) {
+      if ((y === mid1 && x === mid1) || (y === mid2 && x === mid2)) {
         board[y][x] = 0;
-      } else if ((y === 2) & (x === 3) || (y === 3 && x === 2)) {
+      } else if ((y === mid1) & (x === mid2) || (y === mid2 && x === mid1)) {
         board[y][x] = 1;
       }
     }
   }
   console.log(board);
-  // Temporary code for debug
-  board[1][2] = board[1][1] = board[2][1] = board[1][0] = board[3][0] = 0;
-  board[0][0] = board[4][0] = 1;
+  // Temporary code for debug; note [posY][posX]
+  board[5][6] =
+    board[5][5] =
+    board[6][5] =
+    board[3][2] =
+    board[5][2] =
+    board[4][3] =
+    board[4][1] =
+      0;
+  board[2][2] = board[6][2] = board[4][0] = 1;
 
   // TODO: Display board on screen
   updateBoardDisplay(board);
@@ -47,6 +45,31 @@ function resetGame(board) {
 }
 
 function updateBoardDisplay(board) {
+  const size = board.length;
+
+  const oldBoard = document.querySelectorAll(".row");
+  oldBoard.forEach((row) => row.remove());
+
+  // Create board HTML elements
+  row = document.createElement("div");
+  row.setAttribute("class", "row");
+  dt = document.createElement("div");
+  dt.setAttribute("class", "dt");
+  for (let i = 0; i < size; i++) {
+    const newNode = dt.cloneNode(true);
+    newNode.setAttribute("x", i);
+    row.appendChild(newNode);
+  }
+  game = document.querySelector(".game");
+  for (let i = 0; i < size; i++) {
+    const newNode = row.cloneNode(true);
+    newNode.setAttribute("y", i);
+    newNodeChildren = newNode.querySelectorAll(".dt");
+    newNodeChildren.forEach((nodeChild) => nodeChild.setAttribute("y", i));
+    game.appendChild(newNode);
+  }
+
+  // Update elements with data
   boardElements = document.querySelectorAll(".row");
   boardElements.forEach((row, y) => {
     let eachRow = row.querySelectorAll(".dt");
@@ -60,4 +83,12 @@ function updateBoardDisplay(board) {
       }
     });
   });
+}
+
+function changePlayer(currPlayer) {
+  if (currPlayer) {
+    currPlayer = 0;
+  } else {
+    currPlayer = 1;
+  }
 }

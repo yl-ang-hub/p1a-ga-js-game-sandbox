@@ -1,11 +1,4 @@
-function checkEligibleMoves(
-  currY,
-  currX,
-  self,
-  opponent,
-  board,
-  checkMove = false
-) {
+function checkEligibleMoves(currY, currX, self, board, checkMove = false) {
   /**
    * @return [isEligible: boolean, seedsToFlip: arrayOf[posY, posX]
    */
@@ -13,14 +6,19 @@ function checkEligibleMoves(
   //   check any eligible move for selected direction
   //   break if there is an eligible move and checkMove is set to true
   let seedsToFlip = [];
+  let isEligible = false;
   let temp = [];
   let foundSelf = false;
   let foundOpponent = false;
+  let opponent = 1;
+  if (self) {
+    opponent = 0;
+  }
 
   // Repeat this function below for each direction
   const addAndResetCounters = () => {
     if (foundOpponent && foundSelf && checkMove) {
-      return true;
+      return [true, temp];
     } else if (foundOpponent && foundSelf) {
       foundSelf = foundOpponent = false;
       temp.forEach((coord) => seedsToFlip.push(coord));
@@ -92,19 +90,42 @@ function checkEligibleMoves(
 
   console.log(temp);
   console.log(seedsToFlip);
+
+  seedsToFlip ? (isEligible = true) : (isEligible = false);
+  return [isEligible, seedsToFlip];
 }
 
-function checkAvailableMove(board) {
+function hasAvailableMove(board) {
   /**
    * @return boolean
    */
   // Loop all possible free spaces to put seed
-  //   checkEligibleMove(pos, board, checkMove = true) for selected direction, return
+  //   checkEligibleMove(pos, board, checkMove = true) for selected direction
+  //   if yes, return true
 }
 
-function flipPieces(seedsToFlip) {
-  // Loop all possible directions
-  //   checkEligibleMove()
-  //   if true, get seedsToFlip
-  //   Update board and display flipped seed
+function flipSeeds(seedsToFlip, board) {
+  for (const [posY, posX] of seedsToFlip) {
+    board[posY][posX] = currPlayer;
+  }
+  updateBoardDisplay(board);
+  return board;
+}
+
+function placeSeed(y, x, currPlayer) {
+  if (!board[y][x] === null) {
+    // TODO - code this
+    console.log("illegal move");
+    return board;
+  } else if (!hasAvailableMove(board)) {
+    console.log(`No eligible move left for ${currPlayer}`);
+    changePlayer();
+  }
+
+  board[y][x] = currPlayer;
+  const [isEligible, seedsToFlip] = checkEligibleMoves(y, x, currPlayer, board);
+  if (isEligible) {
+    board = flipSeeds(seedsToFlip);
+  }
+  return board;
 }
