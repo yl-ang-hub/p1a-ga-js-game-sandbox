@@ -75,7 +75,9 @@ const ground = Bodies.rectangle(
   }
 );
 
-// Create axes for my flippers
+// Add sprites
+
+// Create axes for my flippers?
 
 // add all of the bodies to the world
 Composite.add(engine.world, [pinball, leftFlipper, rightFlipper, ground]);
