@@ -1,4 +1,4 @@
-function checkEligibleMove(
+function checkEligibleMoves(
   currY,
   currX,
   self,
