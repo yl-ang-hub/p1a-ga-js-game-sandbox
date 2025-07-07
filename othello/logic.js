@@ -115,6 +115,9 @@ function flipSeeds(seedsToFlip, currPlayer, board) {
 }
 
 function placeSeed(y, x, currPlayer) {
+  /**
+   * Return [board, currPlayer]
+   */
   if (!board[y][x] === null) {
     // TODO - code this
     console.log("illegal move");
@@ -131,6 +134,6 @@ function placeSeed(y, x, currPlayer) {
   if (isEligible) {
     board = flipSeeds(seedsToFlip, currPlayer, board);
   }
-  changePlayer(currPlayer);
-  return board;
+  currPlayer = changePlayer(currPlayer);
+  return [board, currPlayer];
 }

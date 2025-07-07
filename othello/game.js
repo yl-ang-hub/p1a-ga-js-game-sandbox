@@ -19,7 +19,6 @@ function setUpBoard(size) {
     }
   }
   // Temporary code for debug; note [posY][posX]
-  console.log(board);
   board[5][6] = 0;
   board[5][5] = board[6][5] = board[3][2] = 0;
   board[5][2] = board[4][3] = board[4][1] = 0;
@@ -89,8 +88,9 @@ function changePlayer(currPlayer) {
   }
   currPlayerDisplay = document.querySelector("h2");
   if (currPlayer === 0) {
-    currPlayerDisplay.innerText = "Current Player: Computer";
+    currPlayerDisplay.innerText = "Current Player: Computer (0)";
   } else {
-    currPlayerDisplay.innerText = "Current Player: User";
+    currPlayerDisplay.innerText = "Current Player: User (1)";
   }
+  return currPlayer;
 }
