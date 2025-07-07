@@ -61,7 +61,6 @@ function checkEligibleMoves(
   // Direction: DOWN
   for (y = currY + 1; y <= board.length; y++) {
     curr = board[y][currX];
-    print(curr);
     if (curr === opponent) {
       temp.push([y, currX]);
       foundOpponent = true;

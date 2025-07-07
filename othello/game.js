@@ -1,13 +1,24 @@
-function setUpBoard() {
+function setUpBoard(size) {
   /**
    * Initialise a new board
    * @return array representing the board
    * Assume 0 is black, 1 is white, and null is empty
    */
+  row = document.createElement("div");
+  row.setAttribute("class", "row");
+  dt = document.createElement("div");
+  dt.setAttribute("class", "dt");
+  for (let i = 0; i < size; i++) {
+    row.appendChild(dt.cloneNode(true));
+  }
+  game = document.querySelector(".game");
+  for (let i = 0; i < size; i++) {
+    game.appendChild(row.cloneNode(true));
+  }
   let board = [];
-  for (let y = 0; y < 6; y++) {
+  for (let y = 0; y < size; y++) {
     board[y] = [];
-    for (let x = 0; x < 6; x++) {
+    for (let x = 0; x < size; x++) {
       board[y][x] = null;
       if ((y === 2 && x === 2) || (y === 3 && x === 3)) {
         board[y][x] = 0;
@@ -16,6 +27,7 @@ function setUpBoard() {
       }
     }
   }
+  console.log(board);
   // Temporary code for debug
   board[1][2] = board[1][1] = board[2][1] = board[1][0] = board[3][0] = 0;
   board[0][0] = board[4][0] = 1;
