@@ -1,0 +1,29 @@
+* {
+  box-sizing: border-box;
+}
+
+.title {
+  width: 100vw;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: center;
+  margin: 50px 50px;
+  padding: 50px 50px;
+  height: 300px;
+  width: 300px;
+  background-color: lightblue;
+  font: white;
+}
+
+.reset {
+  margin: 20px auto;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
