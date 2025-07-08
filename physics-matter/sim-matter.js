@@ -24,6 +24,7 @@ const render = Render.create({
   options: {
     height: renderHeight,
     width: renderWidth,
+    wireframes: false,
   },
 });
 
@@ -41,7 +42,16 @@ const pinball = Bodies.circle(
   renderWidth / 2,
   renderHeight * 0.2,
   30,
-  { restitution: 1.5 },
+  {
+    restitution: 1.5,
+    render: {
+      sprite: {
+        texture: "./assets/flippers-ball.png",
+        xOffset: 0.5,
+        yOffset: 0.5,
+      },
+    },
+  },
   80
 );
 const leftFlipper = Bodies.rectangle(
@@ -76,6 +86,7 @@ const ground = Bodies.rectangle(
 );
 
 // Add sprites
+// pinball.render.sprite = {};
 
 // Create axes for my flippers?
 
